@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
             ResponsiveBreakpoint.resize(700, name: TABLET),
             ResponsiveBreakpoint.resize(1200, name: DESKTOP),
           ]),
-      home: LoginScreen(),
+      home: HomeScreen(),
     );
   }
 }
