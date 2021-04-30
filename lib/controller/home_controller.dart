@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_charts_example/screens/widget_charts_flutter.dart';
 import 'package:mobx/mobx.dart';
 
 part 'home_controller.g.dart';
@@ -12,8 +11,6 @@ enum TypeChart {
 }
 
 abstract class _HomeController with Store {
-  @observable
-  Widget currentChart = WidgetChartsFlutter();
 
   @observable
   bool isFlChart = false;
