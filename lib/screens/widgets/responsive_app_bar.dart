@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_charts_example/controller/home_controller.dart';
 import 'package:flutter_charts_example/screens/widgets/button_app_bar.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:responsive_framework/responsive_framework.dart';
-
-import '../home_screen.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import '../login_screen.dart';
 
 class ResponsiveAppBar extends StatelessWidget {
+
+  final HomeController controller;
+
+  ResponsiveAppBar({this.controller});
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -25,14 +28,11 @@ class ResponsiveAppBar extends StatelessWidget {
         ),
       ),
       actions: [
-        ButtonAppBar(
-          text: ' Trocar plugin',
-          iconData: Icons.wifi_protected_setup_outlined,
-          onTap: () => Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => LoginScreen(),
-            ),
+        Observer(
+          builder: (_) => ButtonAppBar(
+            text: ' Trocar plugin',
+            iconData: Icons.wifi_protected_setup_outlined,
+            onTap: () => controller.changeTypeChart()
           ),
         ),
         SizedBox(

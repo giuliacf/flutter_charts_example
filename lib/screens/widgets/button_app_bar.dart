@@ -18,7 +18,7 @@ class ButtonAppBar extends StatelessWidget {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: () => onTap,
+        onTap: onTap,
         child: Row(
           children: [
             Icon(iconData),
