@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_charts_example/screens/home_screen.dart';
 import 'package:flutter_charts_example/screens/widgets/custom_button.dart';
 import 'package:flutter_charts_example/screens/widgets/custom_text_field.dart';
 
@@ -60,11 +59,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: double.infinity,
                   child: CustomButton(
                     text: 'ENTRAR',
-                    onPressed: () => Navigator.pushReplacement(
+                    onPressed: () => Navigator.pushNamed(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => HomeScreen(),
-                      ),
+                      '/home',
                     ),
                   ),
                 )
