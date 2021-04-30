@@ -15,13 +15,14 @@ class CustomButton extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         text,
-        style: TextStyle(color: Colors.white),
+        style: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
       ),
       style: OutlinedButton.styleFrom(
-        side: BorderSide(
-          width: 2,
-          color: Colors.white,
-        ),
+        padding: EdgeInsets.symmetric(vertical: 24),
+        backgroundColor: Color(0xFF40BA8D),
       ),
     );
   }
