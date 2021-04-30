@@ -2,13 +2,20 @@ import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
   final String text;
+  final bool obscure;
+  final Widget suffixIcon;
 
-  CustomTextField({this.text});
+  CustomTextField({
+    this.text,
+    this.obscure = false,
+    this.suffixIcon,
+  });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       cursorColor: Colors.blue,
+      obscureText: obscure,
       style: TextStyle(
         color: Colors.white,
       ),
@@ -25,6 +32,7 @@ class CustomTextField extends StatelessWidget {
         ),
         hintStyle: TextStyle(color: Colors.white),
         hintText: text,
+        suffixIcon: suffixIcon,
       ),
     );
   }

@@ -4,6 +4,8 @@ import 'package:flutter_charts_example/screens/login_screen.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:responsive_framework/utils/scroll_behavior.dart';
 
+import 'screens/login_screen.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -28,7 +30,7 @@ class MyApp extends StatelessWidget {
             ResponsiveBreakpoint.resize(700, name: TABLET),
             ResponsiveBreakpoint.resize(1200, name: DESKTOP),
           ]),
-      home: HomeScreen(),
+      home: LoginScreen(),
     );
   }
 }

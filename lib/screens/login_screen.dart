@@ -10,6 +10,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  bool _showPassword = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +36,23 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   height: 16,
                 ),
-                CustomTextField(text: 'Senha'),
+                CustomTextField(
+                  text: 'Senha',
+                  obscure: !_showPassword,
+                  suffixIcon: IconButton(
+                    tooltip: _showPassword ? 'Ocultar senha' : 'Exibir senha',
+                    icon: _showPassword
+                        ? Icon(Icons.visibility_off_outlined)
+                        : Icon(Icons.visibility_outlined),
+                    onPressed: () {
+                      setState(
+                        () {
+                          _showPassword = !_showPassword;
+                        },
+                      );
+                    },
+                  ),
+                ),
                 SizedBox(
                   height: 32,
                 ),
