@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_charts_example/screens/widgets/button_app_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+
+import '../home_screen.dart';
+import '../login_screen.dart';
 
 class ResponsiveAppBar extends StatelessWidget {
   @override
@@ -13,32 +17,40 @@ class ResponsiveAppBar extends StatelessWidget {
       title: Center(
         child: ConstrainedBox(
           constraints: BoxConstraints(maxWidth: 1000),
-          child: Container(width: 120, child: Image.asset('assets/logo.png')),
+          child: Container(
+              width: 120,
+              child: Image.asset(
+                'assets/logo.png',
+              )),
         ),
       ),
       actions: [
-        MouseRegion(
-            cursor: SystemMouseCursors.click,
-            child: GestureDetector(
-              child: Row(
-                children: [
-                  Icon(Icons.wifi_protected_setup_outlined),
-                  Text(' Trocar plugin'),
-                ],
-              ),
-            )),
-        SizedBox(width: 20,),
-        MouseRegion(
-            cursor: SystemMouseCursors.click,
-            child: GestureDetector(
-              child: Row(
-                children: [
-                  Icon(Icons.login),
-                  Text(' Sair'),
-                ],
-              ),
-            )),
-        SizedBox(width: 20,),
+        ButtonAppBar(
+          text: ' Trocar plugin',
+          iconData: Icons.wifi_protected_setup_outlined,
+          onTap: () => Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => LoginScreen(),
+            ),
+          ),
+        ),
+        SizedBox(
+          width: 20,
+        ),
+        ButtonAppBar(
+          text: ' Sair',
+          iconData: Icons.login,
+          onTap: () => Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => LoginScreen(),
+            ),
+          ),
+        ),
+        SizedBox(
+          width: 20,
+        ),
       ],
     );
   }
