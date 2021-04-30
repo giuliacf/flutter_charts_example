@@ -22,7 +22,7 @@ class CustomButton extends StatelessWidget {
       ),
       style: OutlinedButton.styleFrom(
         padding: EdgeInsets.symmetric(vertical: 24),
-        backgroundColor: Color(0xFFF7941E),
+        backgroundColor: Color(0xFF40BA8D),
       ),
     );
   }
