@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
       title: 'Plataforma',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        brightness: Brightness.dark,
       ),
       debugShowCheckedModeBanner: false,
       builder: (context, widget) => ResponsiveWrapper.builder(
