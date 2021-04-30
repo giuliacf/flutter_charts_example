@@ -10,16 +10,14 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  bool _showPassword = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: SingleChildScrollView(
-          physics: NeverScrollableScrollPhysics(),
-          child: Container(
-            width: 400,
+        child: Container(
+          width: 400,
+          padding: const EdgeInsets.symmetric(vertical: 16.0),
+          child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -36,22 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   height: 16,
                 ),
-                CustomTextField(
-                  text: 'Senha',
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      _showPassword
-                          ? Icons.visibility_outlined
-                          : Icons.visibility_off_outlined,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _showPassword = !_showPassword;
-                      });
-                    },
-                  ),
-                ),
+                CustomTextField(text: 'Senha'),
                 SizedBox(
                   height: 32,
                 ),
