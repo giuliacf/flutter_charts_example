@@ -13,10 +13,16 @@ class CustomTextField extends StatelessWidget {
         color: Colors.white,
       ),
       decoration: InputDecoration(
-        enabledBorder:
-            OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
-        focusedBorder:
-            OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.white,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.white,
+          ),
+        ),
         hintStyle: TextStyle(color: Colors.white),
         hintText: text,
       ),
