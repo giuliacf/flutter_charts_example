@@ -35,7 +35,16 @@ class FlLineCharts extends StatelessWidget {
   }
 }
 
-class MultipleLineChart extends StatelessWidget {
+class MultipleLineChart extends StatefulWidget {
+  final bool hasArea;
+
+  MultipleLineChart({Key key, this.hasArea = false}) : super(key: key);
+
+  @override
+  _MultipleLineChartState createState() => _MultipleLineChartState();
+}
+
+class _MultipleLineChartState extends State<MultipleLineChart> {
   final months = [
     'Jan',
     'Fev',
@@ -51,9 +60,12 @@ class MultipleLineChart extends StatelessWidget {
     'Dez'
   ];
 
-  final bool hasArea;
+  final values = [
+    [0, 2, 1, 3, 7, 1, 2, 2, 2, 3, 1, 1],
+    [3, 5, 6, 6, 3, 7, 10, 9, 8, 10, 11, 14]
+  ];
 
-  MultipleLineChart({Key key, this.hasArea = false}) : super(key: key);
+  bool changeData = false;
 
   @override
   Widget build(BuildContext context) {
@@ -65,13 +77,28 @@ class MultipleLineChart extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const Text(
-                'Tarefas por tipo',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Tarefas por tipo',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.shuffle),
+                    iconSize: 18,
+                    tooltip: 'Trocar dados',
+                    onPressed: () {
+                      setState(() {
+                        changeData = !changeData;
+                      });
+                    },
+                  ),
+                ],
               ),
               const SizedBox(height: 24),
               Expanded(
@@ -79,6 +106,8 @@ class MultipleLineChart extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 16),
                   child: LineChart(
                     lineData(context),
+                    swapAnimationDuration: Duration(milliseconds: 500),
+                    swapAnimationCurve: Curves.easeInOut,
                   ),
                 ),
               ),
@@ -181,53 +210,35 @@ class MultipleLineChart extends StatelessWidget {
 
   List<LineChartBarData> linesBarData1() {
     final LineChartBarData lineChartBarData2 = LineChartBarData(
-      spots: [
-        FlSpot(0, 0),
-        FlSpot(1, 2),
-        FlSpot(2, 1),
-        FlSpot(3, 3),
-        FlSpot(4, 7),
-        FlSpot(5, 1),
-        FlSpot(6, 2),
-        FlSpot(7, 2),
-        FlSpot(8, 2),
-        FlSpot(9, 3),
-        FlSpot(10, 1),
-        FlSpot(11, 1),
-      ],
+      spots: values[changeData ? 0 : 1]
+          .asMap()
+          .entries
+          .map((value) => FlSpot(value.key.toDouble(), value.value.toDouble()))
+          .toList(),
       isCurved: true,
       colors: [const Color(0xffef4123)],
       barWidth: 3,
       isStrokeCapRound: true,
       dotData: FlDotData(show: false),
       belowBarData: BarAreaData(
-        show: hasArea,
+        show: widget.hasArea,
         colors: [Color(0xffef4123).withOpacity(0.3)],
       ),
     );
 
     final LineChartBarData lineChartBarData1 = LineChartBarData(
-      spots: [
-        FlSpot(0, 3),
-        FlSpot(1, 5),
-        FlSpot(2, 6),
-        FlSpot(3, 6),
-        FlSpot(4, 3),
-        FlSpot(5, 7),
-        FlSpot(6, 10),
-        FlSpot(7, 9),
-        FlSpot(8, 8),
-        FlSpot(9, 10),
-        FlSpot(10, 11),
-        FlSpot(11, 14),
-      ],
+      spots: values[changeData ? 1 : 0]
+          .asMap()
+          .entries
+          .map((value) => FlSpot(value.key.toDouble(), value.value.toDouble()))
+          .toList(),
       isCurved: true,
       colors: [Color(0xff40ba8d)],
       barWidth: 3,
       isStrokeCapRound: true,
       dotData: FlDotData(show: false),
       belowBarData: BarAreaData(
-        show: hasArea,
+        show: widget.hasArea,
         colors: [Color(0xff40ba8d).withOpacity(0.3)],
       ),
     );
