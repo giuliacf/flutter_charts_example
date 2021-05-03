@@ -1,6 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_charts_example/screens/widgets/indicator.dart';
+import 'package:flutter_charts_example/screens/widgets/fl_charts/indicator.dart';
 
 class FlLineCharts extends StatelessWidget {
   @override

@@ -6,23 +6,27 @@ import 'package:flutter_charts_example/screens/widgets/fl_charts/fl_pie_chart.da
 class WidgetFlChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.topCenter,
-      child: ConstrainedBox(
-        constraints: BoxConstraints(maxWidth: 1200),
-        child: Container(
-          padding: EdgeInsets.all(32),
-          child: ListView(
-            children: [
-              FlBarCharts(),
-              SizedBox(height: 16),
-              FlLineCharts(),
-              SizedBox(height: 16),
-              FlPieCharts(),
-            ],
+    return ListView(
+      children: [
+        Align(
+          alignment: Alignment.topCenter,
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: 1200),
+            child: Container(
+              padding: EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  FlBarCharts(),
+                  SizedBox(height: 16),
+                  FlLineCharts(),
+                  SizedBox(height: 16),
+                  FlPieCharts(),
+                ],
+              ),
+            ),
           ),
-        ),
-      ),
+        )
+      ],
     );
   }
 }

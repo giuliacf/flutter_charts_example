@@ -1,7 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
-import 'package:flutter_charts_example/screens/widgets/indicator.dart';
+import 'package:flutter_charts_example/screens/widgets/fl_charts/indicator.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 class PieModel {
@@ -31,10 +31,11 @@ class FlPieCharts extends StatelessWidget {
             return GridView.count(
               crossAxisCount: constraints.maxWidth >= 700 ? 2 : 1,
               childAspectRatio: 1.5,
+              crossAxisSpacing: 16,
               shrinkWrap: true,
               children: [
-                PieChartSample2(hasCenterSpace: true),
-                PieChartSample2(),
+                PieChartExample(hasCenterSpace: true),
+                PieChartExample(),
               ],
             );
           },
@@ -44,17 +45,15 @@ class FlPieCharts extends StatelessWidget {
   }
 }
 
-class PieChartSample2 extends StatefulWidget {
+class PieChartExample extends StatefulWidget {
   final bool hasCenterSpace;
-
-  const PieChartSample2({Key key, this.hasCenterSpace = false})
-      : super(key: key);
+  PieChartExample({this.hasCenterSpace = false});
 
   @override
   State<StatefulWidget> createState() => PieChart2State();
 }
 
-class PieChart2State extends State<PieChartSample2> {
+class PieChart2State extends State<PieChartExample> {
   int touchedIndex;
 
   List<PieModel> data = [
@@ -70,7 +69,7 @@ class PieChart2State extends State<PieChartSample2> {
       height: 300,
       child: Card(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -84,30 +83,57 @@ class PieChart2State extends State<PieChartSample2> {
               ),
               const SizedBox(height: 24),
               Expanded(
-                child: PieChart(
-                  PieChartData(
-                    pieTouchData:
-                        PieTouchData(touchCallback: (pieTouchResponse) {
-                      setState(() {
-                        final desiredTouch =
-                            pieTouchResponse.touchInput is! PointerExitEvent &&
-                                pieTouchResponse.touchInput is! PointerUpEvent;
-                        if (desiredTouch &&
-                            pieTouchResponse.touchedSection != null) {
-                          touchedIndex = pieTouchResponse
-                              .touchedSection.touchedSectionIndex;
-                        } else {
-                          touchedIndex = -1;
-                        }
-                      });
-                    }),
-                    borderData: FlBorderData(
-                      show: false,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: PieChart(
+                        PieChartData(
+                          pieTouchData:
+                              PieTouchData(touchCallback: (pieTouchResponse) {
+                            setState(() {
+                              final desiredTouch = pieTouchResponse.touchInput
+                                      is! PointerExitEvent &&
+                                  pieTouchResponse.touchInput
+                                      is! PointerUpEvent;
+                              if (desiredTouch &&
+                                  pieTouchResponse.touchedSection != null) {
+                                touchedIndex = pieTouchResponse
+                                    .touchedSection.touchedSectionIndex;
+                              } else {
+                                touchedIndex = -1;
+                              }
+                            });
+                          }),
+                          borderData: FlBorderData(
+                            show: false,
+                          ),
+                          sectionsSpace: 0,
+                          centerSpaceRadius: widget.hasCenterSpace ? 40 : 0,
+                          sections: showingSections(widget.hasCenterSpace),
+                        ),
+                      ),
                     ),
-                    sectionsSpace: 0,
-                    centerSpaceRadius: widget.hasCenterSpace ? 40 : 0,
-                    sections: showingSections(widget.hasCenterSpace),
-                  ),
+                    ResponsiveVisibility(
+                      visible: false,
+                      visibleWhen: [
+                        Condition.smallerThan(name: TABLET),
+                        Condition.equals(name: TABLET)
+                      ],
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          ...data.map((model) {
+                            return Indicator(
+                              color: model.color,
+                              text: model.text,
+                              verticalSpace: 4,
+                            );
+                          }).toList(),
+                        ],
+                      ),
+                    )
+                  ],
                 ),
               ),
               const SizedBox(height: 24),
