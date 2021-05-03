@@ -124,7 +124,7 @@ class MultipleLineChart extends StatelessWidget {
                     ),
                   ),
                   TextSpan(
-                    text: flSpot.barIndex == 0 ? ' Bugs' : ' Features',
+                    text: flSpot.barIndex == 1 ? ' Bugs' : ' Features',
                     style: TextStyle(
                       fontWeight: FontWeight.normal,
                     ),
@@ -147,13 +147,13 @@ class MultipleLineChart extends StatelessWidget {
       titlesData: FlTitlesData(
         bottomTitles: SideTitles(
           showTitles: true,
-          reservedSize: 22,
+          getTitles: (value) => months[value.toInt()],
           getTextStyles: (value) => const TextStyle(
             color: Colors.white,
             fontSize: 14,
           ),
           margin: 24,
-          getTitles: (value) => months[value.toInt()],
+          rotateAngle: -45,
         ),
         leftTitles: SideTitles(
           showTitles: true,
