@@ -35,6 +35,9 @@ class FlLineCharts extends StatelessWidget {
   }
 }
 
+const fetaureColor = Color(0xff40ba8d);
+const bugsColor = Color(0xffef4123);
+
 class MultipleLineChart extends StatefulWidget {
   final bool hasArea;
 
@@ -61,8 +64,8 @@ class _MultipleLineChartState extends State<MultipleLineChart> {
   ];
 
   final values = [
-    [0, 2, 1, 3, 7, 1, 2, 2, 2, 3, 1, 1],
-    [3, 5, 6, 6, 3, 7, 10, 9, 8, 10, 11, 14]
+    <double>[0, 2, 1, 3, 7, 1, 2, 2, 2, 3, 1, 1],
+    <double>[3, 5, 6, 6, 3, 7, 10, 9, 8, 10, 11, 14]
   ];
 
   bool changeData = false;
@@ -117,11 +120,11 @@ class _MultipleLineChartState extends State<MultipleLineChart> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Indicator(
-                    color: Color(0xff40ba8d),
+                    color: fetaureColor,
                     text: 'Features',
                   ),
                   Indicator(
-                    color: Color(0xffef4123),
+                    color: bugsColor,
                     text: 'Bugs',
                   ),
                 ],
@@ -143,21 +146,10 @@ class _MultipleLineChartState extends State<MultipleLineChart> {
               final flSpot = barSpot;
 
               return LineTooltipItem(
-                '',
+                flSpot.y.toString(),
                 TextStyle(color: Colors.white),
                 children: [
-                  TextSpan(
-                    text: flSpot.y.toString(),
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                  TextSpan(
-                    text: flSpot.barIndex == 1 ? ' Bugs' : ' Features',
-                    style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
+                  TextSpan(text: flSpot.barIndex == 1 ? ' Bugs' : ' Features'),
                 ],
               );
             }).toList();
@@ -167,10 +159,7 @@ class _MultipleLineChartState extends State<MultipleLineChart> {
       gridData: FlGridData(
         show: true,
         drawHorizontalLine: true,
-        getDrawingHorizontalLine: (value) => FlLine(
-          color: Colors.grey,
-          strokeWidth: 0.3,
-        ),
+        drawVerticalLine: true,
         horizontalInterval: 4,
       ),
       titlesData: FlTitlesData(
@@ -202,8 +191,6 @@ class _MultipleLineChartState extends State<MultipleLineChart> {
       ),
       maxY: 20,
       maxX: 11,
-      minX: 0,
-      minY: 0,
       lineBarsData: linesBarData1(),
     );
   }
@@ -213,16 +200,16 @@ class _MultipleLineChartState extends State<MultipleLineChart> {
       spots: values[changeData ? 0 : 1]
           .asMap()
           .entries
-          .map((value) => FlSpot(value.key.toDouble(), value.value.toDouble()))
+          .map((model) => FlSpot(model.key.toDouble(), model.value))
           .toList(),
       isCurved: true,
-      colors: [const Color(0xffef4123)],
+      colors: [bugsColor],
       barWidth: 3,
       isStrokeCapRound: true,
       dotData: FlDotData(show: false),
       belowBarData: BarAreaData(
         show: widget.hasArea,
-        colors: [Color(0xffef4123).withOpacity(0.3)],
+        colors: [bugsColor.withOpacity(0.3)],
       ),
     );
 
@@ -230,16 +217,16 @@ class _MultipleLineChartState extends State<MultipleLineChart> {
       spots: values[changeData ? 1 : 0]
           .asMap()
           .entries
-          .map((value) => FlSpot(value.key.toDouble(), value.value.toDouble()))
+          .map((model) => FlSpot(model.key.toDouble(), model.value))
           .toList(),
       isCurved: true,
-      colors: [Color(0xff40ba8d)],
+      colors: [fetaureColor],
       barWidth: 3,
       isStrokeCapRound: true,
       dotData: FlDotData(show: false),
       belowBarData: BarAreaData(
         show: widget.hasArea,
-        colors: [Color(0xff40ba8d).withOpacity(0.3)],
+        colors: [fetaureColor.withOpacity(0.3)],
       ),
     );
 

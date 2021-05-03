@@ -22,6 +22,11 @@ class FlBarCharts extends StatelessWidget {
   }
 }
 
+const textStyle = TextStyle(
+  color: Colors.white,
+  fontSize: 14,
+);
+
 class VerticalBarChart extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => VerticalBarChartState();
@@ -128,17 +133,11 @@ class VerticalBarChartState extends State<VerticalBarChart> {
           tooltipBgColor: Theme.of(context).backgroundColor,
           getTooltipItem: (group, groupIndex, rod, rodIndex) => BarTooltipItem(
             months[group.x.toInt()] + ': ',
-            TextStyle(
-              color: Colors.white,
-              fontSize: 14,
-            ),
+            textStyle,
             children: <TextSpan>[
               TextSpan(
                 text: (rod.y - 1).toString(),
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                ),
+                style: textStyle,
               ),
             ],
           ),
@@ -159,23 +158,14 @@ class VerticalBarChartState extends State<VerticalBarChart> {
         show: true,
         bottomTitles: SideTitles(
           showTitles: true,
-          getTextStyles: (value) {
-            bool isTouched = touchedIndex == value.toInt();
-            return TextStyle(
-              color: isTouched ? Color(0xff40ba8d) : Colors.white,
-              fontSize: 14,
-            );
-          },
+          getTextStyles: (value) => textStyle,
           margin: 24,
           getTitles: (double value) => months[value.toInt()],
         ),
         leftTitles: SideTitles(
           showTitles: true,
           interval: 5,
-          getTextStyles: (value) => TextStyle(
-            color: Colors.white,
-            fontSize: 14,
-          ),
+          getTextStyles: (value) => textStyle,
           margin: 16,
         ),
       ),

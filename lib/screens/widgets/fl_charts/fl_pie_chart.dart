@@ -19,7 +19,7 @@ class FlPieCharts extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Gráficos de torta',
+          'Gráficos torta',
           style: TextStyle(
             color: Colors.white,
             fontSize: 20,
@@ -164,7 +164,6 @@ class PieChart2State extends State<PieChartExample> {
   List<PieChartSectionData> showingSections(bool hasCenterSpace) {
     return data.asMap().entries.map((model) {
       final isTouched = model.key == touchedIndex;
-      final double fontSize = 14;
       final double radius =
           isTouched ? (hasCenterSpace ? 50 : 100) : (hasCenterSpace ? 40 : 90);
 
@@ -174,7 +173,7 @@ class PieChart2State extends State<PieChartExample> {
         title: '${model.value.value}%',
         radius: radius,
         titleStyle: TextStyle(
-          fontSize: fontSize,
+          fontSize: 14,
           fontWeight: FontWeight.bold,
           color: Colors.white,
         ),
