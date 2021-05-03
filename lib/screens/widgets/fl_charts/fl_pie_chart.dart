@@ -74,7 +74,7 @@ class PieChart2State extends State<PieChartExample> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                'Tarefas por tipo',
+                'Tempo gasto por projeto',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 18,
