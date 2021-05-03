@@ -31,65 +31,25 @@ class WidgetFlChart extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 16),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  buildColumnWidgets(
+                    title: 'Gráficos de linha',
                     children: [
-                      Text(
-                        'Gráficos de linha',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                        ),
-                      ),
-                      SizedBox(height: 16),
-                      LayoutBuilder(
-                        builder: (context, constraints) {
-                          return GridView.count(
-                            crossAxisCount: constraints.maxWidth >= 700 ? 2 : 1,
-                            childAspectRatio: 1.5,
-                            crossAxisSpacing: 16,
-                            shrinkWrap: true,
-                            children: [
-                              MultipleLineChart(title: 'Tarefas por tipo'),
-                              MultipleLineChart(
-                                title: 'Tarefas por tipo',
-                                hasArea: true,
-                              ),
-                            ],
-                          );
-                        },
+                      MultipleLineChart(title: 'Tarefas por tipo'),
+                      MultipleLineChart(
+                        title: 'Tarefas por tipo',
+                        hasArea: true,
                       ),
                     ],
                   ),
                   SizedBox(height: 16),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  buildColumnWidgets(
+                    title: 'Gráficos torta',
                     children: [
-                      Text(
-                        'Gráficos torta',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                        ),
+                      PieChartExample(title: 'Tempo gasto por projeto'),
+                      PieChartExample(
+                        title: 'Tempo gasto por projeto',
+                        hasCenterSpace: true,
                       ),
-                      SizedBox(height: 16),
-                      LayoutBuilder(
-                        builder: (context, constraints) {
-                          return GridView.count(
-                            crossAxisCount: constraints.maxWidth >= 700 ? 2 : 1,
-                            childAspectRatio: 1.5,
-                            crossAxisSpacing: 16,
-                            shrinkWrap: true,
-                            children: [
-                              PieChartExample(title: 'Tempo gasto por projeto'),
-                              PieChartExample(
-                                title: 'Tempo gasto por projeto',
-                                hasCenterSpace: true,
-                              ),
-                            ],
-                          );
-                        },
-                      )
                     ],
                   ),
                 ],
@@ -97,6 +57,33 @@ class WidgetFlChart extends StatelessWidget {
             ),
           ),
         )
+      ],
+    );
+  }
+
+  Column buildColumnWidgets({String title, List<Widget> children}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+          ),
+        ),
+        SizedBox(height: 16),
+        LayoutBuilder(
+          builder: (context, constraints) {
+            return GridView.count(
+              crossAxisCount: constraints.maxWidth >= 700 ? 2 : 1,
+              childAspectRatio: 1.5,
+              crossAxisSpacing: 16,
+              shrinkWrap: true,
+              children: children,
+            );
+          },
+        ),
       ],
     );
   }
