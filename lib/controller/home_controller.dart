@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 part 'home_controller.g.dart';
@@ -11,12 +10,9 @@ enum TypeChart {
 }
 
 abstract class _HomeController with Store {
-
   @observable
-  bool isFlChart = false;
+  bool isFlChart = true;
 
   @action
-  void changeTypeChart() =>
-      isFlChart = !isFlChart;
-
+  void changeTypeChart() => isFlChart = !isFlChart;
 }

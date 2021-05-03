@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_charts_example/controller/home_controller.dart';
 import 'package:flutter_charts_example/screens/widget_charts_flutter.dart';
@@ -7,7 +6,6 @@ import 'package:flutter_charts_example/screens/widgets/responsive_app_bar.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 class HomeScreen extends StatelessWidget {
-
   final HomeController controller = HomeController();
 
   @override
@@ -18,9 +16,9 @@ class HomeScreen extends StatelessWidget {
         child: ResponsiveAppBar(controller: controller),
       ),
       body: Observer(
-        builder: (_) => controller.isFlChart?
-        WidgetFlChart() : WidgetChartsFlutter(),
-      )
+        builder: (_) =>
+            controller.isFlChart ? WidgetFlChart() : WidgetChartsFlutter(),
+      ),
     );
   }
 }
