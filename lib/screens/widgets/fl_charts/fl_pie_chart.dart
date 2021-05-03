@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_charts_example/screens/widgets/indicator.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 class PieModel {
   final Color color;
@@ -25,8 +26,19 @@ class FlPieCharts extends StatelessWidget {
           ),
         ),
         SizedBox(height: 16),
-        PieChartSample2(hasCenterSpace: true),
-        PieChartSample2(),
+        LayoutBuilder(
+          builder: (context, constraints) {
+            return GridView.count(
+              crossAxisCount: constraints.maxWidth >= 700 ? 2 : 1,
+              childAspectRatio: 1.5,
+              shrinkWrap: true,
+              children: [
+                PieChartSample2(hasCenterSpace: true),
+                PieChartSample2(),
+              ],
+            );
+          },
+        )
       ],
     );
   }
@@ -99,17 +111,22 @@ class PieChart2State extends State<PieChartSample2> {
                 ),
               ),
               const SizedBox(height: 24),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ...data.map((model) {
-                    return Indicator(
-                      color: model.color,
-                      text: model.text,
-                    );
-                  }).toList(),
-                ],
+              ResponsiveVisibility(
+                visible: false,
+                visibleWhen: [Condition.largerThan(name: TABLET)],
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    ...data.map((model) {
+                      return Indicator(
+                        color: model.color,
+                        text: model.text,
+                        horizontalSpace: 8,
+                      );
+                    }).toList(),
+                  ],
+                ),
               )
             ],
           ),
@@ -123,7 +140,7 @@ class PieChart2State extends State<PieChartSample2> {
       final isTouched = model.key == touchedIndex;
       final double fontSize = 14;
       final double radius =
-          isTouched ? (hasCenterSpace ? 60 : 110) : (hasCenterSpace ? 50 : 100);
+          isTouched ? (hasCenterSpace ? 50 : 100) : (hasCenterSpace ? 40 : 90);
 
       return PieChartSectionData(
         color: model.value.color,

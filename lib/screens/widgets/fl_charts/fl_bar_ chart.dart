@@ -49,39 +49,53 @@ class VerticalBarChartState extends State<VerticalBarChart> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 300,
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Tarefas concluídas no mês',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Container(
+          height: 300,
+          child: Card(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Tarefas concluídas no mês',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 24),
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      child: BarChart(
+                        mainBarData(
+                          isMobile: constraints.maxWidth < 700,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              SizedBox(height: 24),
-              Expanded(child: BarChart(mainBarData())),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
-  BarChartGroupData makeGroupData(int x, double y, {bool isTouched = false}) {
+  BarChartGroupData makeGroupData(int x, double y,
+      {bool isMobile, bool isTouched = false}) {
     return BarChartGroupData(
       x: x,
       barRods: [
         BarChartRodData(
           y: y,
           colors: isTouched ? [Color(0xff40ba8d)] : [Colors.white],
-          width: 25,
+          width: isMobile ? 12 : 25,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(4),
             topRight: Radius.circular(4),
@@ -96,12 +110,17 @@ class VerticalBarChartState extends State<VerticalBarChart> {
     );
   }
 
-  List<BarChartGroupData> showingGroups() => List.generate(
+  List<BarChartGroupData> showingGroups(bool isMobile) => List.generate(
         12,
-        (i) => makeGroupData(i, values[i], isTouched: i == touchedIndex),
+        (i) => makeGroupData(
+          i,
+          values[i],
+          isMobile: isMobile,
+          isTouched: i == touchedIndex,
+        ),
       );
 
-  BarChartData mainBarData() {
+  BarChartData mainBarData({bool isMobile}) {
     return BarChartData(
       maxY: 20,
       barTouchData: BarTouchData(
@@ -176,7 +195,7 @@ class VerticalBarChartState extends State<VerticalBarChart> {
           top: BorderSide(color: Colors.white, width: 0.3),
         ),
       ),
-      barGroups: showingGroups(),
+      barGroups: showingGroups(isMobile),
     );
   }
 }

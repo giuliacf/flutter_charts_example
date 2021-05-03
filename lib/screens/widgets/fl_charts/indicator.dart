@@ -5,6 +5,8 @@ class Indicator extends StatelessWidget {
   final String text;
   final bool isSquare;
   final double size;
+  final double verticalSpace;
+  final double horizontalSpace;
   final Color textColor;
 
   const Indicator({
@@ -14,12 +16,17 @@ class Indicator extends StatelessWidget {
     this.isSquare = false,
     this.size = 16,
     this.textColor = Colors.white,
+    this.verticalSpace = 2,
+    this.horizontalSpace = 4,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 2),
+      margin: EdgeInsets.symmetric(
+        vertical: verticalSpace,
+        horizontal: horizontalSpace,
+      ),
       child: Row(
         children: <Widget>[
           Container(

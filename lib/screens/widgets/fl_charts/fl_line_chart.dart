@@ -21,8 +21,12 @@ class FlLineCharts extends StatelessWidget {
             return GridView.count(
               crossAxisCount: constraints.maxWidth >= 700 ? 2 : 1,
               childAspectRatio: 1.5,
+              crossAxisSpacing: 16,
               shrinkWrap: true,
-              children: [MultipleLineChart(), MultipleLineChart(hasArea: true)],
+              children: [
+                MultipleLineChart(),
+                MultipleLineChart(hasArea: true),
+              ],
             );
           },
         ),
@@ -70,7 +74,14 @@ class MultipleLineChart extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 24),
-              Expanded(child: LineChart(lineData(context))),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: LineChart(
+                    lineData(context),
+                  ),
+                ),
+              ),
               const SizedBox(height: 24),
               Row(
                 mainAxisSize: MainAxisSize.max,
@@ -80,7 +91,6 @@ class MultipleLineChart extends StatelessWidget {
                     color: Color(0xff40ba8d),
                     text: 'Features',
                   ),
-                  SizedBox(width: 16),
                   Indicator(
                     color: Color(0xffef4123),
                     text: 'Bugs',
@@ -105,9 +115,7 @@ class MultipleLineChart extends StatelessWidget {
 
               return LineTooltipItem(
                 '',
-                TextStyle(
-                  color: Colors.white,
-                ),
+                TextStyle(color: Colors.white),
                 children: [
                   TextSpan(
                     text: flSpot.y.toString(),
