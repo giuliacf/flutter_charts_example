@@ -12,42 +12,11 @@ class PieModel {
   PieModel({this.color, this.text, this.value});
 }
 
-class FlPieCharts extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Gráficos torta',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-          ),
-        ),
-        SizedBox(height: 16),
-        LayoutBuilder(
-          builder: (context, constraints) {
-            return GridView.count(
-              crossAxisCount: constraints.maxWidth >= 700 ? 2 : 1,
-              childAspectRatio: 1.5,
-              crossAxisSpacing: 16,
-              shrinkWrap: true,
-              children: [
-                PieChartExample(hasCenterSpace: true),
-                PieChartExample(),
-              ],
-            );
-          },
-        )
-      ],
-    );
-  }
-}
-
 class PieChartExample extends StatefulWidget {
   final bool hasCenterSpace;
-  PieChartExample({this.hasCenterSpace = false});
+  final String title;
+
+  PieChartExample({@required this.title, this.hasCenterSpace = false});
 
   @override
   State<StatefulWidget> createState() => PieChart2State();
@@ -73,8 +42,8 @@ class PieChart2State extends State<PieChartExample> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Tempo gasto por projeto',
+              Text(
+                widget.title,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 18,

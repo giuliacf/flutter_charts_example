@@ -2,32 +2,15 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-class FlBarCharts extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Gráficos de barra',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-          ),
-        ),
-        SizedBox(height: 16),
-        VerticalBarChart(),
-      ],
-    );
-  }
-}
-
 const textStyle = TextStyle(
   color: Colors.white,
   fontSize: 14,
 );
 
 class VerticalBarChart extends StatefulWidget {
+  final String title;
+  const VerticalBarChart({@required this.title});
+
   @override
   State<StatefulWidget> createState() => VerticalBarChartState();
 }
@@ -65,7 +48,7 @@ class VerticalBarChartState extends State<VerticalBarChart> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Tarefas concluídas no mês',
+                    widget.title,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,

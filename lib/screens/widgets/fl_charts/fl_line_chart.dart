@@ -2,46 +2,14 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_charts_example/screens/widgets/fl_charts/indicator.dart';
 
-class FlLineCharts extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Gráficos de linha',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-          ),
-        ),
-        SizedBox(height: 16),
-        LayoutBuilder(
-          builder: (context, constraints) {
-            return GridView.count(
-              crossAxisCount: constraints.maxWidth >= 700 ? 2 : 1,
-              childAspectRatio: 1.5,
-              crossAxisSpacing: 16,
-              shrinkWrap: true,
-              children: [
-                MultipleLineChart(),
-                MultipleLineChart(hasArea: true),
-              ],
-            );
-          },
-        ),
-      ],
-    );
-  }
-}
-
 const fetaureColor = Color(0xff40ba8d);
 const bugsColor = Color(0xffef4123);
 
 class MultipleLineChart extends StatefulWidget {
   final bool hasArea;
+  final String title;
 
-  MultipleLineChart({Key key, this.hasArea = false}) : super(key: key);
+  MultipleLineChart({@required this.title, this.hasArea = false});
 
   @override
   _MultipleLineChartState createState() => _MultipleLineChartState();
@@ -83,8 +51,8 @@ class _MultipleLineChartState extends State<MultipleLineChart> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Tarefas por tipo',
+                  Text(
+                    widget.title,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
