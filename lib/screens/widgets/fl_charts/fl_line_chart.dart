@@ -191,13 +191,13 @@ class MultipleLineChart extends StatelessWidget {
         FlSpot(11, 14),
       ],
       isCurved: true,
-      colors: [const Color(0xff8DC63F)],
+      colors: [Color(0xff40ba8d)],
       barWidth: 3,
       isStrokeCapRound: true,
       dotData: FlDotData(show: false),
       belowBarData: BarAreaData(
         show: hasArea,
-        colors: [Color(0xff8DC63F).withOpacity(0.3)],
+        colors: [Color(0xff40ba8d).withOpacity(0.3)],
       ),
     );
 

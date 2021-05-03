@@ -1,4 +1,5 @@
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class FlBarChart extends StatelessWidget {
@@ -21,23 +22,6 @@ class FlBarChart extends StatelessWidget {
   }
 }
 
-const months = [
-  'Jan',
-  'Fev',
-  'Mar',
-  'Abr',
-  'Mai',
-  'Jun',
-  'Jul',
-  'Ago',
-  'Set',
-  'Out',
-  'Nov',
-  'Dez'
-];
-
-const values = <double>[12, 4, 6, 7, 12, 10, 13, 6, 4, 2, 8, 15];
-
 class VerticalBarChart extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => VerticalBarChartState();
@@ -46,7 +30,22 @@ class VerticalBarChart extends StatefulWidget {
 class VerticalBarChartState extends State<VerticalBarChart> {
   int touchedIndex;
 
-  bool isPlaying = false;
+  final months = [
+    'Jan',
+    'Fev',
+    'Mar',
+    'Abr',
+    'Mai',
+    'Jun',
+    'Jul',
+    'Ago',
+    'Set',
+    'Out',
+    'Nov',
+    'Dez'
+  ];
+
+  final values = <double>[12, 4, 6, 7, 12, 10, 13, 6, 4, 2, 8, 15];
 
   @override
   Widget build(BuildContext context) {
@@ -75,15 +74,18 @@ class VerticalBarChartState extends State<VerticalBarChart> {
     );
   }
 
-  BarChartGroupData makeGroupData(int x, double y) {
+  BarChartGroupData makeGroupData(int x, double y, {bool isTouched = false}) {
     return BarChartGroupData(
       x: x,
       barRods: [
         BarChartRodData(
           y: y,
-          colors: [Colors.white],
+          colors: isTouched ? [Color(0xff40ba8d)] : [Colors.white],
           width: 25,
-          borderRadius: BorderRadius.all(Radius.zero),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(4),
+            topRight: Radius.circular(4),
+          ),
           backDrawRodData: BackgroundBarChartRodData(
             show: true,
             y: 25,
@@ -96,10 +98,7 @@ class VerticalBarChartState extends State<VerticalBarChart> {
 
   List<BarChartGroupData> showingGroups() => List.generate(
         12,
-        (i) => makeGroupData(
-          i,
-          values[i],
-        ),
+        (i) => makeGroupData(i, values[i], isTouched: i == touchedIndex),
       );
 
   BarChartData mainBarData() {
@@ -108,36 +107,46 @@ class VerticalBarChartState extends State<VerticalBarChart> {
       barTouchData: BarTouchData(
         touchTooltipData: BarTouchTooltipData(
           tooltipBgColor: Theme.of(context).backgroundColor,
-          getTooltipItem: (group, groupIndex, rod, rodIndex) {
-            String weekDay = months[group.x.toInt()];
-
-            return BarTooltipItem(
-              weekDay + ': ',
-              TextStyle(
-                color: Colors.white,
-                fontSize: 14,
-              ),
-              children: <TextSpan>[
-                TextSpan(
-                  text: (rod.y - 1).toString(),
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                  ),
+          getTooltipItem: (group, groupIndex, rod, rodIndex) => BarTooltipItem(
+            months[group.x.toInt()] + ': ',
+            TextStyle(
+              color: Colors.white,
+              fontSize: 14,
+            ),
+            children: <TextSpan>[
+              TextSpan(
+                text: (rod.y - 1).toString(),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
                 ),
-              ],
-            );
-          },
+              ),
+            ],
+          ),
         ),
+        touchCallback: (barTouchResponse) {
+          setState(() {
+            if (barTouchResponse.spot != null &&
+                barTouchResponse.touchInput is! PointerUpEvent &&
+                barTouchResponse.touchInput is! PointerExitEvent) {
+              touchedIndex = barTouchResponse.spot.touchedBarGroupIndex;
+            } else {
+              touchedIndex = -1;
+            }
+          });
+        },
       ),
       titlesData: FlTitlesData(
         show: true,
         bottomTitles: SideTitles(
           showTitles: true,
-          getTextStyles: (value) => TextStyle(
-            color: Colors.white,
-            fontSize: 14,
-          ),
+          getTextStyles: (value) {
+            bool isTouched = touchedIndex == value.toInt();
+            return TextStyle(
+              color: isTouched ? Color(0xff40ba8d) : Colors.white,
+              fontSize: 14,
+            );
+          },
           margin: 24,
           getTitles: (double value) => months[value.toInt()],
         ),

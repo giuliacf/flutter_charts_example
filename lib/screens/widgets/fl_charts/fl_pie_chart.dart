@@ -46,7 +46,7 @@ class PieChart2State extends State<PieChartSample2> {
   int touchedIndex;
 
   List<PieModel> data = [
-    PieModel(color: Color(0xff8DC63F), text: 'Projeto 1', value: 40),
+    PieModel(color: Color(0xff40ba8d), text: 'Projeto 1', value: 40),
     PieModel(color: Color(0xffF7941E), text: 'Projeto 2', value: 30),
     PieModel(color: Color(0xffEF4123), text: 'Projeto 3', value: 15),
     PieModel(color: Color(0xff0C3455), text: 'Projeto 4', value: 15)

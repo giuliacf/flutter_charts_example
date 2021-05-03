@@ -14,10 +14,10 @@ class WidgetFlChart extends StatelessWidget {
           padding: EdgeInsets.all(32),
           child: ListView(
             children: [
-              // FlBarChart(),
-              // SizedBox(height: 16),
-              // FlLineChart(),
-              // SizedBox(height: 16),
+              FlBarChart(),
+              SizedBox(height: 16),
+              FlLineChart(),
+              SizedBox(height: 16),
               FlPieChart(),
             ],
           ),
