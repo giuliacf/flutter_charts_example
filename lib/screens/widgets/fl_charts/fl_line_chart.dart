@@ -1,7 +1,8 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_charts_example/screens/widgets/indicator.dart';
 
-class FlLineChart extends StatelessWidget {
+class FlLineCharts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -15,34 +16,40 @@ class FlLineChart extends StatelessWidget {
           ),
         ),
         SizedBox(height: 16),
-        MultipleLineChart(),
-        MultipleLineChart(
-          hasArea: true,
+        LayoutBuilder(
+          builder: (context, constraints) {
+            return GridView.count(
+              crossAxisCount: constraints.maxWidth >= 700 ? 2 : 1,
+              childAspectRatio: 1.5,
+              shrinkWrap: true,
+              children: [MultipleLineChart(), MultipleLineChart(hasArea: true)],
+            );
+          },
         ),
       ],
     );
   }
 }
 
-const months = [
-  'Jan',
-  'Fev',
-  'Mar',
-  'Abr',
-  'Mai',
-  'Jun',
-  'Jul',
-  'Ago',
-  'Set',
-  'Out',
-  'Nov',
-  'Dez'
-];
-
 class MultipleLineChart extends StatelessWidget {
+  final months = [
+    'Jan',
+    'Fev',
+    'Mar',
+    'Abr',
+    'Mai',
+    'Jun',
+    'Jul',
+    'Ago',
+    'Set',
+    'Out',
+    'Nov',
+    'Dez'
+  ];
+
   final bool hasArea;
 
-  const MultipleLineChart({Key key, this.hasArea = false}) : super(key: key);
+  MultipleLineChart({Key key, this.hasArea = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +71,22 @@ class MultipleLineChart extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               Expanded(child: LineChart(lineData(context))),
+              const SizedBox(height: 24),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Indicator(
+                    color: Color(0xff40ba8d),
+                    text: 'Features',
+                  ),
+                  SizedBox(width: 16),
+                  Indicator(
+                    color: Color(0xffef4123),
+                    text: 'Bugs',
+                  ),
+                ],
+              )
             ],
           ),
         ),

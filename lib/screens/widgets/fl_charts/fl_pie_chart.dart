@@ -11,7 +11,7 @@ class PieModel {
   PieModel({this.color, this.text, this.value});
 }
 
-class FlPieChart extends StatelessWidget {
+class FlPieCharts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
