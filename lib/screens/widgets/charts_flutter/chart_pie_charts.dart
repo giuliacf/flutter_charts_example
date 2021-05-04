@@ -12,22 +12,18 @@ class ChartPieCharts extends StatelessWidget {
           animate: false,
           defaultRenderer: hasDefaultRenderer
               ? charts.ArcRendererConfig(
-            arcWidth: 60,
-            arcRendererDecorators: [
-              charts.ArcLabelDecorator(),
-            ],
-          )
+                  arcWidth: 60,
+                  arcRendererDecorators: [
+                    charts.ArcLabelDecorator(),
+                  ],
+                )
               : null,
           behaviors: [
             charts.DatumLegend(
               position: charts.BehaviorPosition.end,
               horizontalFirst: false,
               cellPadding: EdgeInsets.only(right: 4.0, bottom: 4.0),
-              showMeasures: true,
-              legendDefaultMeasure: charts.LegendDefaultMeasure.lastValue,
-              measureFormatter: (num value) {
-                return value == null ? '-' : '${value}k';
-              },
+              showMeasures: false,
             ),
           ],
         ));
@@ -42,6 +38,10 @@ class ChartPieCharts extends StatelessWidget {
         children: [
           Expanded(
             child: renderChart(true),
+          ),
+          Container(
+            width: 150,
+            child: VerticalDivider(),
           ),
           Expanded(
             child: renderChart(false),
@@ -58,29 +58,59 @@ class ChartPieCharts extends StatelessWidget {
     );
   }
 
-  static List<charts.Series<LinearSales, int>> chartsData() {
+  static List<charts.Series<HoursForProject, String>> chartsData() {
     final data = [
-      new LinearSales('Projeto 1', 100),
-      new LinearSales('Projeto 2', 75),
-      new LinearSales('Projeto 3', 25),
-      new LinearSales('Projeto 4', 5),
+      HoursForProject(
+        'Projeto 1',
+        50,
+        charts.ColorUtil.fromDartColor(
+          Color(0xff40ba8d),
+        ),
+      ),
+      HoursForProject(
+        'Projeto 2',
+        25,
+        charts.ColorUtil.fromDartColor(
+          Color(0xffF7941E),
+        ),
+      ),
+      HoursForProject(
+        'Projeto 3',
+        10,
+        charts.ColorUtil.fromDartColor(
+          Color(0xffEF4123),
+        ),
+      ),
+      HoursForProject(
+        'Projeto 4',
+        15,
+        charts.ColorUtil.fromDartColor(
+          Color(0xff0C3455),
+        ),
+      ),
     ];
 
     return [
-      new charts.Series<LinearSales, int>(
-        id: 'Sales',
-        domainFn: (LinearSales sales, _) => sales.sales,
-        measureFn: (LinearSales sales, _) => sales.sales,
+      charts.Series<HoursForProject, String>(
+        id: 'percentage',
+        domainFn: (HoursForProject percentage, _) => percentage.project,
+        measureFn: (HoursForProject percentage, _) => percentage.percentage,
         data: data,
-        labelAccessorFn: (LinearSales row, _) => '${row.year}: ${row.sales}',
+        labelAccessorFn: (HoursForProject row, _) => '${row.project}',
+        colorFn: (HoursForProject percentage, _) => percentage.color,
       )
     ];
   }
 }
 
-class LinearSales {
-  final String year;
-  final int sales;
+class HoursForProject {
+  final String project;
+  final int percentage;
+  final charts.Color color;
 
-  LinearSales(this.year, this.sales);
+  HoursForProject(
+    this.project,
+    this.percentage,
+    this.color,
+  );
 }

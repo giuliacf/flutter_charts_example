@@ -31,6 +31,10 @@ class ChartBarCharts extends StatelessWidget {
           Expanded(
             child: renderChart(true),
           ),
+          Container(
+            width: 150,
+            child: VerticalDivider(),
+          ),
           Expanded(
             child: renderChart(false),
           ),

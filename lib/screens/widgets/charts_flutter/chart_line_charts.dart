@@ -4,16 +4,15 @@ import 'package:responsive_framework/responsive_value.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 
 class ChartLineCharts extends StatelessWidget {
-  Widget renderChart(bool includeArea) {
+  Widget renderChart(bool isVertical) {
     return Container(
-      height: 400.0,
-      child: charts.LineChart(chartsData2(),
-          defaultRenderer: charts.LineRendererConfig(
-            includeArea: includeArea,
-            stacked: true,
-          ),
-          animate: false),
-    );
+        height: 400.0,
+        child: charts.LineChart(_createSampleData(),
+            defaultRenderer: new charts.LineRendererConfig(
+              includeArea: isVertical,
+              stacked: true,
+            ),
+            animate: true));
   }
 
   @override
@@ -24,21 +23,28 @@ class ChartLineCharts extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: renderChart(false),
+            child: renderChart(true),
+          ),
+          Container(
+            width: 150,
+            child: VerticalDivider(),
           ),
           Expanded(
-            child: renderChart(true),
+            child: renderChart(false),
           ),
         ],
       ),
       replacement: Wrap(
         runSpacing: 50,
-        children: [renderChart(false), renderChart(true)],
+        children: [
+          renderChart(true),
+          renderChart(false),
+        ],
       ),
     );
   }
 
-  static List<charts.Series<LinearSales, int>> chartsData2() {
+  static List<charts.Series<LinearSales, int>> _createSampleData() {
     final colorChangeData = [
       new LinearSales(0, 5, null, 2.0),
       new LinearSales(1, 15, null, 2.0),
@@ -76,7 +82,6 @@ class ChartLineCharts extends StatelessWidget {
     return [
       new charts.Series<LinearSales, int>(
         id: 'Color Change',
-        // Light shade for even years, dark shade for odd.
         colorFn: (LinearSales sales, _) =>
             sales.year % 2 == 0 ? blue[1] : blue[0],
         dashPatternFn: (LinearSales sales, _) => sales.dashPattern,
@@ -87,7 +92,6 @@ class ChartLineCharts extends StatelessWidget {
       ),
       new charts.Series<LinearSales, int>(
         id: 'Dash Pattern Change',
-        // Light shade for even years, dark shade for odd.
         colorFn: (LinearSales sales, _) =>
             sales.year % 2 == 0 ? red[1] : red[0],
         dashPatternFn: (LinearSales sales, _) => sales.dashPattern,
@@ -98,7 +102,6 @@ class ChartLineCharts extends StatelessWidget {
       ),
       new charts.Series<LinearSales, int>(
         id: 'Stroke Width Change',
-        // Light shade for even years, dark shade for odd.
         colorFn: (LinearSales sales, _) =>
             sales.year % 2 == 0 ? green[1] : green[0],
         dashPatternFn: (LinearSales sales, _) => sales.dashPattern,
