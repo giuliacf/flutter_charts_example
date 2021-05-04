@@ -10,12 +10,9 @@ enum TypeChart {
 }
 
 abstract class _HomeController with Store {
-
   @observable
   bool isFlChart = false;
 
   @action
-  void changeTypeChart() =>
-      isFlChart = !isFlChart;
-
+  void changeTypeChart() => isFlChart = !isFlChart;
 }

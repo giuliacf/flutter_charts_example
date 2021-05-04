@@ -6,7 +6,6 @@ import 'package:flutter_charts_example/screens/widgets/responsive_app_bar.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 class HomeScreen extends StatelessWidget {
-
   final HomeController controller = HomeController();
 
   @override
@@ -17,9 +16,9 @@ class HomeScreen extends StatelessWidget {
         child: ResponsiveAppBar(controller: controller),
       ),
       body: Observer(
-        builder: (_) => controller.isFlChart?
-        WidgetFlChart() : WidgetChartsFlutter(),
-      )
+        builder: (_) =>
+            controller.isFlChart ? WidgetFlChart() : WidgetChartsFlutter(),
+      ),
     );
   }
 }
