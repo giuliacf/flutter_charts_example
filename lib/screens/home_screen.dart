@@ -1,8 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_charts_example/controller/home_controller.dart';
-import 'package:flutter_charts_example/screens/widget_charts_flutter.dart';
 import 'package:flutter_charts_example/screens/widget_fl_chart.dart';
+import 'package:flutter_charts_example/screens/widgets/charts_flutter/widget_charts_flutter.dart';
 import 'package:flutter_charts_example/screens/widgets/responsive_app_bar.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 

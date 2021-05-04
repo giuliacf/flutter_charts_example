@@ -6,7 +6,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../login_screen.dart';
 
 class ResponsiveAppBar extends StatelessWidget {
-
   final HomeController controller;
 
   ResponsiveAppBar({this.controller});
@@ -17,23 +16,24 @@ class ResponsiveAppBar extends StatelessWidget {
       backgroundColor: Color(0xff40ba8d),
       elevation: 1,
       centerTitle: true,
-      title: Center(
-        child: ConstrainedBox(
-          constraints: BoxConstraints(maxWidth: 1000),
-          child: Container(
-              width: 120,
-              child: Image.asset(
-                'assets/logo.png',
-              )),
-        ),
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Container(
+            width: 120,
+            child: Image.asset(
+              'assets/logo.png',
+            ),
+          )
+        ],
       ),
       actions: [
         Observer(
           builder: (_) => ButtonAppBar(
-            text: ' Trocar plugin',
-            iconData: Icons.wifi_protected_setup_outlined,
-            onTap: () => controller.changeTypeChart()
-          ),
+              text: ' Trocar plugin',
+              iconData: Icons.wifi_protected_setup_outlined,
+              onTap: () => controller.changeTypeChart()),
         ),
         SizedBox(
           width: 20,
