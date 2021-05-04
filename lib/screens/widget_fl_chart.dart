@@ -27,7 +27,7 @@ class WidgetFlChart extends StatelessWidget {
                         ),
                       ),
                       SizedBox(height: 16),
-                      VerticalBarChart(title: 'Tarefas concluídas no mês'),
+                      VerticalBarChart(title: 'Tarefas concluídas por mês'),
                     ],
                   ),
                   SizedBox(height: 16),
