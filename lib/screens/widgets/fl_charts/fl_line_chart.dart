@@ -5,12 +5,17 @@ import 'package:flutter_charts_example/screens/widgets/fl_charts/indicator.dart'
 const fetaureColor = Color(0xff40ba8d);
 const bugsColor = Color(0xffef4123);
 
-class MultipleLineChart extends StatelessWidget {
+class MultipleLineChart extends StatefulWidget {
   final bool hasArea;
   final String title;
 
-  MultipleLineChart({this.hasArea, this.title});
+  MultipleLineChart({@required this.title, this.hasArea = false});
 
+  @override
+  _MultipleLineChartState createState() => _MultipleLineChartState();
+}
+
+class _MultipleLineChartState extends State<MultipleLineChart> {
   final months = [
     'Jan',
     'Fev',
@@ -27,9 +32,11 @@ class MultipleLineChart extends StatelessWidget {
   ];
 
   final values = [
-    [0, 2, 1, 3, 7, 1, 2, 2, 2, 3, 1, 1],
-    [3, 5, 6, 6, 3, 7, 10, 9, 8, 10, 11, 14]
+    <double>[0, 2, 1, 3, 7, 1, 2, 2, 2, 3, 1, 1],
+    <double>[3, 5, 6, 6, 3, 7, 10, 9, 8, 10, 11, 14]
   ];
+
+  bool changeData = false;
 
   Widget build(BuildContext context) {
     return Container(
@@ -40,13 +47,28 @@ class MultipleLineChart extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                title,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    widget.title,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.shuffle),
+                    iconSize: 18,
+                    tooltip: 'Trocar dados',
+                    onPressed: () {
+                      setState(() {
+                        changeData = !changeData;
+                      });
+                    },
+                  ),
+                ],
               ),
               const SizedBox(height: 24),
               Expanded(
@@ -142,7 +164,7 @@ class MultipleLineChart extends StatelessWidget {
 
   List<LineChartBarData> linesBarData1() {
     final LineChartBarData lineChartBarData2 = LineChartBarData(
-      spots: values[0]
+      spots: values[changeData ? 0 : 1]
           .asMap()
           .entries
           .map((model) => FlSpot(model.key.toDouble(), model.value.toDouble()))
@@ -153,13 +175,13 @@ class MultipleLineChart extends StatelessWidget {
       isStrokeCapRound: true,
       dotData: FlDotData(show: false),
       belowBarData: BarAreaData(
-        show: hasArea,
+        show: widget.hasArea,
         colors: [bugsColor.withOpacity(0.3)],
       ),
     );
 
     final LineChartBarData lineChartBarData1 = LineChartBarData(
-      spots: values[1]
+      spots: values[changeData ? 1 : 0]
           .asMap()
           .entries
           .map((model) => FlSpot(model.key.toDouble(), model.value.toDouble()))
@@ -170,7 +192,7 @@ class MultipleLineChart extends StatelessWidget {
       isStrokeCapRound: true,
       dotData: FlDotData(show: false),
       belowBarData: BarAreaData(
-        show: hasArea,
+        show: widget.hasArea,
         colors: [fetaureColor.withOpacity(0.3)],
       ),
     );
