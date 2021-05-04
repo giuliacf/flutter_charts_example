@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_charts_example/screens/widgets/fl_charts/fl_bar_chart.dart';
 import 'package:flutter_charts_example/screens/widgets/fl_charts/fl_line_chart.dart';
 import 'package:flutter_charts_example/screens/widgets/fl_charts/fl_pie_chart.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 class WidgetFlChart extends StatelessWidget {
   @override
@@ -73,16 +74,17 @@ class WidgetFlChart extends StatelessWidget {
           ),
         ),
         SizedBox(height: 16),
-        LayoutBuilder(
-          builder: (context, constraints) {
-            return GridView.count(
-              crossAxisCount: constraints.maxWidth >= 700 ? 2 : 1,
-              childAspectRatio: 1.5,
-              crossAxisSpacing: 16,
-              shrinkWrap: true,
-              children: children,
-            );
-          },
+        ResponsiveVisibility(
+          visible: false,
+          visibleWhen: [Condition.largerThan(name: TABLET)],
+          child: Row(
+            children:
+                children.map((widget) => Expanded(child: widget)).toList(),
+          ),
+          replacement: Wrap(
+            runSpacing: 50,
+            children: children,
+          ),
         ),
       ],
     );

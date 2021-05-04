@@ -40,7 +40,7 @@ class VerticalBarChartState extends State<VerticalBarChart> {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Container(
-          height: 300,
+          height: 400,
           child: Card(
             child: Padding(
               padding: const EdgeInsets.all(16),

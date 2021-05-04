@@ -40,7 +40,7 @@ class _MultipleLineChartState extends State<MultipleLineChart> {
 
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
+      height: 400,
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
