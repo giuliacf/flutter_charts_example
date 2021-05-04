@@ -38,10 +38,9 @@ class _MultipleLineChartState extends State<MultipleLineChart> {
 
   bool changeData = false;
 
-  @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
+      height: 400,
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -168,7 +167,7 @@ class _MultipleLineChartState extends State<MultipleLineChart> {
       spots: values[changeData ? 0 : 1]
           .asMap()
           .entries
-          .map((model) => FlSpot(model.key.toDouble(), model.value))
+          .map((model) => FlSpot(model.key.toDouble(), model.value.toDouble()))
           .toList(),
       isCurved: true,
       colors: [bugsColor],
@@ -185,7 +184,7 @@ class _MultipleLineChartState extends State<MultipleLineChart> {
       spots: values[changeData ? 1 : 0]
           .asMap()
           .entries
-          .map((model) => FlSpot(model.key.toDouble(), model.value))
+          .map((model) => FlSpot(model.key.toDouble(), model.value.toDouble()))
           .toList(),
       isCurved: true,
       colors: [fetaureColor],

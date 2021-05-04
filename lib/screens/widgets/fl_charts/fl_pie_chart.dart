@@ -35,7 +35,7 @@ class PieChart2State extends State<PieChartExample> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
+      height: 400,
       child: Card(
         child: Padding(
           padding: EdgeInsets.all(16.0),
