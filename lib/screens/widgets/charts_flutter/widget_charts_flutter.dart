@@ -8,20 +8,20 @@ class WidgetChartsFlutter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(40),
+      padding: EdgeInsets.all(30),
       child: ListView(
         shrinkWrap: true,
         children: [
           WidgetTitleAndChart(
-            title: 'Tarefas concluídas no mês',
+            title: 'Tarefas concluídas por mês',
             chart: ChartBarCharts(),
           ),
-          // WidgetTitleAndChart(
-          //   title: 'Tarefas existentes no projeto',
-          //   chart: ChartLineCharts(),
-          // ),
           WidgetTitleAndChart(
-            title: '% de horas trabalhadas no projeto (por funcionário)',
+            title: 'Tarefas por tipo',
+            chart: ChartLineCharts(),
+          ),
+          WidgetTitleAndChart(
+            title: 'Tempo gasto por projeto',
             chart: ChartPieCharts(),
           )
         ],

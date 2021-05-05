@@ -12,7 +12,7 @@ class WidgetTitleAndChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+      margin: EdgeInsets.symmetric(horizontal: 70, vertical: 15),
       child: Card(
         child: Padding(
           padding: EdgeInsets.all(20),

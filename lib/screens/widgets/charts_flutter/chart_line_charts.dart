@@ -6,13 +6,20 @@ import 'package:responsive_framework/responsive_wrapper.dart';
 class ChartLineCharts extends StatelessWidget {
   Widget renderChart(bool isVertical) {
     return Container(
-        height: 400.0,
-        child: charts.LineChart(_createSampleData(),
-            defaultRenderer: new charts.LineRendererConfig(
-              includeArea: isVertical,
-              stacked: true,
-            ),
-            animate: true));
+      height: 400.0,
+      child: charts.LineChart(_createSampleData(),
+          defaultRenderer: new charts.LineRendererConfig(
+            includeArea: isVertical,
+            stacked: true,
+          ),
+          behaviors: [
+            charts.SeriesLegend(
+              position: charts.BehaviorPosition.bottom,
+              desiredMaxRows: 2,
+            )
+          ],
+          animate: true),
+    );
   }
 
   @override
@@ -44,81 +51,134 @@ class ChartLineCharts extends StatelessWidget {
     );
   }
 
-  static List<charts.Series<LinearSales, int>> _createSampleData() {
-    final colorChangeData = [
-      new LinearSales(0, 5, null, 2.0),
-      new LinearSales(1, 15, null, 2.0),
-      new LinearSales(2, 25, null, 2.0),
-      new LinearSales(3, 75, null, 2.0),
-      new LinearSales(4, 100, null, 2.0),
-      new LinearSales(5, 90, null, 2.0),
-      new LinearSales(6, 75, null, 2.0),
+  static List<charts.Series<ProjectTasks, int>> _createSampleData() {
+    final myFakeDesktopData = [
+      ProjectTasks(
+        0,
+        5,
+        charts.ColorUtil.fromDartColor(
+          Color(0xffEF4123),
+        ),
+      ),
+      ProjectTasks(
+        1,
+        25,
+        charts.ColorUtil.fromDartColor(
+          Color(0xffEF4123),
+        ),
+      ),
+      ProjectTasks(
+        2,
+        100,
+        charts.ColorUtil.fromDartColor(
+          Color(0xffEF4123),
+        ),
+      ),
+      ProjectTasks(
+        3,
+        75,
+        charts.ColorUtil.fromDartColor(
+          Color(0xffEF4123),
+        ),
+      ),
     ];
 
-    final dashPatternChangeData = [
-      new LinearSales(0, 5, [2, 2], 2.0),
-      new LinearSales(1, 15, [2, 2], 2.0),
-      new LinearSales(2, 25, [4, 4], 2.0),
-      new LinearSales(3, 75, [4, 4], 2.0),
-      new LinearSales(4, 100, [4, 4], 2.0),
-      new LinearSales(5, 90, [8, 3, 2, 3], 2.0),
-      new LinearSales(6, 75, [8, 3, 2, 3], 2.0),
+    var myFakeTabletData = [
+      ProjectTasks(
+        0,
+        10,
+        charts.ColorUtil.fromDartColor(
+          Color(0xffF7941E),
+        ),
+      ),
+      ProjectTasks(
+        1,
+        50,
+        charts.ColorUtil.fromDartColor(
+          Color(0xffF7941E),
+        ),
+      ),
+      ProjectTasks(
+        2,
+        200,
+        charts.ColorUtil.fromDartColor(
+          Color(0xffF7941E),
+        ),
+      ),
+      ProjectTasks(
+        3,
+        150,
+        charts.ColorUtil.fromDartColor(
+          Color(0xffF7941E),
+        ),
+      ),
     ];
 
-    final strokeWidthChangeData = [
-      new LinearSales(0, 5, null, 2.0),
-      new LinearSales(1, 15, null, 2.0),
-      new LinearSales(2, 25, null, 4.0),
-      new LinearSales(3, 75, null, 4.0),
-      new LinearSales(4, 100, null, 4.0),
-      new LinearSales(5, 90, null, 6.0),
-      new LinearSales(6, 75, null, 6.0),
+    var myFakeMobileData = [
+      ProjectTasks(
+        0,
+        15,
+        charts.ColorUtil.fromDartColor(
+          Color(0xff40BA8D),
+        ),
+      ),
+      ProjectTasks(
+        1,
+        75,
+        charts.ColorUtil.fromDartColor(
+          Color(0xff40BA8D),
+        ),
+      ),
+      ProjectTasks(
+        2,
+        300,
+        charts.ColorUtil.fromDartColor(
+          Color(0xff40BA8D),
+        ),
+      ),
+      ProjectTasks(
+        3,
+        225,
+        charts.ColorUtil.fromDartColor(
+          Color(0xff40BA8D),
+        ),
+      ),
     ];
-
-    final blue = charts.MaterialPalette.blue.makeShades(2);
-    final red = charts.MaterialPalette.red.makeShades(2);
-    final green = charts.MaterialPalette.green.makeShades(2);
 
     return [
-      new charts.Series<LinearSales, int>(
-        id: 'Color Change',
-        colorFn: (LinearSales sales, _) =>
-            sales.year % 2 == 0 ? blue[1] : blue[0],
-        dashPatternFn: (LinearSales sales, _) => sales.dashPattern,
-        strokeWidthPxFn: (LinearSales sales, _) => sales.strokeWidthPx,
-        domainFn: (LinearSales sales, _) => sales.year,
-        measureFn: (LinearSales sales, _) => sales.sales,
-        data: colorChangeData,
+      new charts.Series<ProjectTasks, int>(
+        id: 'Bugs',
+        colorFn: (ProjectTasks color, _) => color.color,
+        domainFn: (ProjectTasks sales, _) => sales.year,
+        measureFn: (ProjectTasks sales, _) => sales.sales,
+        data: myFakeDesktopData,
       ),
-      new charts.Series<LinearSales, int>(
-        id: 'Dash Pattern Change',
-        colorFn: (LinearSales sales, _) =>
-            sales.year % 2 == 0 ? red[1] : red[0],
-        dashPatternFn: (LinearSales sales, _) => sales.dashPattern,
-        strokeWidthPxFn: (LinearSales sales, _) => sales.strokeWidthPx,
-        domainFn: (LinearSales sales, _) => sales.year,
-        measureFn: (LinearSales sales, _) => sales.sales,
-        data: dashPatternChangeData,
+      new charts.Series<ProjectTasks, int>(
+        id: 'Testes',
+        colorFn: (ProjectTasks color, _) => color.color,
+        domainFn: (ProjectTasks sales, _) => sales.year,
+        measureFn: (ProjectTasks sales, _) => sales.sales,
+        data: myFakeTabletData,
       ),
-      new charts.Series<LinearSales, int>(
-        id: 'Stroke Width Change',
-        colorFn: (LinearSales sales, _) =>
-            sales.year % 2 == 0 ? green[1] : green[0],
-        dashPatternFn: (LinearSales sales, _) => sales.dashPattern,
-        strokeWidthPxFn: (LinearSales sales, _) => sales.strokeWidthPx,
-        domainFn: (LinearSales sales, _) => sales.year,
-        measureFn: (LinearSales sales, _) => sales.sales,
-        data: strokeWidthChangeData,
+      new charts.Series<ProjectTasks, int>(
+        id: 'Melhorias',
+        colorFn: (ProjectTasks color, _) => color.color,
+        domainFn: (ProjectTasks sales, _) => sales.year,
+        measureFn: (ProjectTasks sales, _) => sales.sales,
+        data: myFakeMobileData,
       ),
     ];
   }
 }
 
-class LinearSales {
+class ProjectTasks {
   final int year;
   final int sales;
-  final List<int> dashPattern;
-  final double strokeWidthPx;
+  final charts.Color color;
 
-  LinearSales(this.year, this.sales, this.dashPattern, this.strokeWidthPx);
+  ProjectTasks(
+    this.year,
+    this.sales,
+    this.color,
+  );
 }
