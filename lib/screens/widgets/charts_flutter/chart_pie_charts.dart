@@ -64,7 +64,7 @@ class ChartPieCharts extends StatelessWidget {
         'Projeto 1',
         50,
         charts.ColorUtil.fromDartColor(
-          Color(0xff40ba8d),
+          Color(0xff40BA8D),
         ),
       ),
       HoursForProject(
@@ -97,7 +97,7 @@ class ChartPieCharts extends StatelessWidget {
         measureFn: (HoursForProject percentage, _) => percentage.percentage,
         data: data,
         labelAccessorFn: (HoursForProject row, _) => '${row.project}',
-        colorFn: (HoursForProject percentage, _) => percentage.color,
+        colorFn: (HoursForProject color, _) => color.color,
       )
     ];
   }

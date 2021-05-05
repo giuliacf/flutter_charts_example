@@ -12,10 +12,10 @@ class WidgetChartsFlutter extends StatelessWidget {
       child: ListView(
         shrinkWrap: true,
         children: [
-          // WidgetTitleAndChart(
-          //   title: 'Tarefas concluídas no mês',
-          //   chart: ChartBarCharts(),
-          // ),
+          WidgetTitleAndChart(
+            title: 'Tarefas concluídas no mês',
+            chart: ChartBarCharts(),
+          ),
           // WidgetTitleAndChart(
           //   title: 'Tarefas existentes no projeto',
           //   chart: ChartLineCharts(),

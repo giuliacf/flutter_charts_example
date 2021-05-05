@@ -10,7 +10,7 @@ class ChartBarCharts extends StatelessWidget {
         height: 400.0,
         child: charts.BarChart(
           chartsData(),
-          animate: false,
+          animate: true,
           vertical: isVertical,
           behaviors: [
             charts.SeriesLegend(
@@ -49,55 +49,76 @@ class ChartBarCharts extends StatelessWidget {
 
   static List<charts.Series<DoneTasks, String>> chartsData() {
     final january = [
-      new DoneTasks('Jan', 55),
+      DoneTasks('Jan', 55, charts.Color.fromHex(code: '#EF4123')),
     ];
 
     final february = [
-      new DoneTasks('Fev', 20),
+      DoneTasks(
+        'Fev',
+        20,
+        charts.Color.fromHex(code: '#0C3455'),
+      ),
     ];
 
     final march = [
-      new DoneTasks('Mar', 45),
+      DoneTasks(
+        'Mar',
+        45,
+        charts.Color.fromHex(code: '#F7941E'),
+      ),
     ];
 
     final april = [
-      new DoneTasks('Abr', 30),
+      DoneTasks(
+        'Abr',
+        30,
+        charts.Color.fromHex(code: '#8dc63f'),
+      ),
     ];
 
     final may = [
-      new DoneTasks('Mai', 10),
+      DoneTasks(
+        'Mai',
+        10,
+        charts.Color.fromHex(code: '#40BA8D'),
+      ),
     ];
 
     return [
-      new charts.Series<DoneTasks, String>(
+      charts.Series<DoneTasks, String>(
         id: 'Janeiro',
-        domainFn: (DoneTasks sales, _) => sales.month,
-        measureFn: (DoneTasks sales, _) => sales.sales,
+        domainFn: (DoneTasks number, _) => number.month,
+        measureFn: (DoneTasks number, _) => number.number,
         data: january,
+        colorFn: (DoneTasks color, _) => color.color,
       ),
-      new charts.Series<DoneTasks, String>(
+      charts.Series<DoneTasks, String>(
         id: 'Fevereiro',
-        domainFn: (DoneTasks sales, _) => sales.month,
-        measureFn: (DoneTasks sales, _) => sales.sales,
+        domainFn: (DoneTasks number, _) => number.month,
+        measureFn: (DoneTasks number, _) => number.number,
         data: february,
+        colorFn: (DoneTasks color, _) => color.color,
       ),
-      new charts.Series<DoneTasks, String>(
+      charts.Series<DoneTasks, String>(
         id: 'Março',
-        domainFn: (DoneTasks sales, _) => sales.month,
-        measureFn: (DoneTasks sales, _) => sales.sales,
+        domainFn: (DoneTasks number, _) => number.month,
+        measureFn: (DoneTasks number, _) => number.number,
         data: march,
+        colorFn: (DoneTasks color, _) => color.color,
       ),
-      new charts.Series<DoneTasks, String>(
+      charts.Series<DoneTasks, String>(
         id: 'Abril',
-        domainFn: (DoneTasks sales, _) => sales.month,
-        measureFn: (DoneTasks sales, _) => sales.sales,
+        domainFn: (DoneTasks number, _) => number.month,
+        measureFn: (DoneTasks number, _) => number.number,
         data: april,
+        colorFn: (DoneTasks color, _) => color.color,
       ),
-      new charts.Series<DoneTasks, String>(
+      charts.Series<DoneTasks, String>(
         id: 'Maio',
-        domainFn: (DoneTasks sales, _) => sales.month,
-        measureFn: (DoneTasks sales, _) => sales.sales,
+        domainFn: (DoneTasks number, _) => number.month,
+        measureFn: (DoneTasks number, _) => number.number,
         data: may,
+        colorFn: (DoneTasks color, _) => color.color,
       ),
     ];
   }
@@ -105,7 +126,8 @@ class ChartBarCharts extends StatelessWidget {
 
 class DoneTasks {
   final String month;
-  final int sales;
+  final int number;
+  final Color color;
 
-  DoneTasks(this.month, this.sales);
+  DoneTasks(this.month, this.number, this.color);
 }
