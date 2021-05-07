@@ -5,26 +5,7 @@ import 'package:responsive_framework/responsive_wrapper.dart';
 
 class ChartLineCharts extends StatelessWidget {
 
-
-
   Widget renderChart(bool isVertical) {
-
-
-    final customTickFormatter =
-    charts.BasicNumericTickFormatterSpec((num value) {
-      if (value == 0) {
-        "Jan";
-      } else if (value == 1) {
-        return "Fev";
-      } else if (value == 2) {
-        return "Mar";
-      } else if (value == 3) {
-        return "Abr";
-      } else if (value == 4) {
-        return "Mai";
-      }
-    });
-
 
     return Container(
       height: 400.0,

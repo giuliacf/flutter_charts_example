@@ -5,7 +5,7 @@ import 'package:responsive_framework/responsive_value.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 
 class ChartBarCharts extends StatelessWidget {
-  Widget renderChart(bool isVertical) {
+  Widget renderChart(bool isVertical, int maxColumns) {
     return Container(
         height: 400.0,
         child: charts.BarChart(
@@ -29,6 +29,7 @@ class ChartBarCharts extends StatelessWidget {
               cellPadding: EdgeInsets.fromLTRB(10, 30, 0, 0),
               position: charts.BehaviorPosition.bottom,
               desiredMaxRows: 2,
+              desiredMaxColumns: maxColumns
             )
           ],
         ));
@@ -42,20 +43,20 @@ class ChartBarCharts extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: renderChart(true),
+            child: renderChart(true, 5),
           ),
           Container(
             width: 150,
             child: VerticalDivider(),
           ),
           Expanded(
-            child: renderChart(false),
+            child: renderChart(false, 5),
           ),
         ],
       ),
       replacement: Wrap(
         runSpacing: 50,
-        children: [renderChart(true), renderChart(false)],
+        children: [renderChart(true, 3), renderChart(false, 3)],
       ),
     );
   }
