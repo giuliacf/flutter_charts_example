@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
-  final String text;
-  final Function onPressed;
-
   CustomButton({
     this.text,
     this.onPressed,
+    this.background
   });
+
+  final String text;
+  final Function onPressed;
+  final Color background;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class CustomButton extends StatelessWidget {
       ),
       style: OutlinedButton.styleFrom(
         padding: EdgeInsets.symmetric(vertical: 24),
-        backgroundColor: Color(0xFF40BA8D),
+        backgroundColor: background,
       ),
     );
   }

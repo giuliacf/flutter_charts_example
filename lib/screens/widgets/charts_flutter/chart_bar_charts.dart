@@ -12,8 +12,21 @@ class ChartBarCharts extends StatelessWidget {
           chartsData(),
           animate: true,
           vertical: isVertical,
+          domainAxis: charts.OrdinalAxisSpec(
+            renderSpec: charts.SmallTickRendererSpec(
+              labelStyle: charts.TextStyleSpec(
+                color: charts.ColorUtil.fromDartColor(Colors.white)),
+              ),
+            ),
+          primaryMeasureAxis: charts.NumericAxisSpec(
+            renderSpec: charts.SmallTickRendererSpec(
+              labelStyle: charts.TextStyleSpec(
+                  color: charts.ColorUtil.fromDartColor(Colors.white)),
+              ),
+            ),
           behaviors: [
             charts.SeriesLegend(
+              cellPadding: EdgeInsets.fromLTRB(10, 30, 0, 0),
               position: charts.BehaviorPosition.bottom,
               desiredMaxRows: 2,
             )
@@ -115,7 +128,7 @@ class ChartBarCharts extends StatelessWidget {
       ),
       charts.Series<DoneTasks, String>(
         id: 'Maio',
-        domainFn: (DoneTasks number, _) => number.month,
+        domainFn: (DoneTasks number, _) =>number.month,
         measureFn: (DoneTasks number, _) => number.number,
         data: may,
         colorFn: (DoneTasks color, _) => color.color,

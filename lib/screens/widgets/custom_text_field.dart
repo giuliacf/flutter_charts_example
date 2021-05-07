@@ -4,11 +4,13 @@ class CustomTextField extends StatelessWidget {
   final String text;
   final bool obscure;
   final Widget suffixIcon;
+  final Function(String) onChanged;
 
   CustomTextField({
     this.text,
     this.obscure = false,
     this.suffixIcon,
+    this.onChanged,
   });
 
   @override
@@ -34,6 +36,7 @@ class CustomTextField extends StatelessWidget {
         hintText: text,
         suffixIcon: suffixIcon,
       ),
+      onChanged: onChanged,
     );
   }
 }

@@ -4,13 +4,48 @@ import 'package:responsive_framework/responsive_value.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 
 class ChartLineCharts extends StatelessWidget {
+
+
+
   Widget renderChart(bool isVertical) {
+
+
+    final customTickFormatter =
+    charts.BasicNumericTickFormatterSpec((num value) {
+      if (value == 0) {
+        "Jan";
+      } else if (value == 1) {
+        return "Fev";
+      } else if (value == 2) {
+        return "Mar";
+      } else if (value == 3) {
+        return "Abr";
+      } else if (value == 4) {
+        return "Mai";
+      }
+    });
+
+
     return Container(
       height: 400.0,
       child: charts.LineChart(_createSampleData(),
-          defaultRenderer: new charts.LineRendererConfig(
+          defaultRenderer: charts.LineRendererConfig(
             includeArea: isVertical,
             stacked: true,
+          ),
+
+          domainAxis: charts.AxisSpec<num>(
+            renderSpec: charts.SmallTickRendererSpec(
+              labelStyle: charts.TextStyleSpec(
+                  color: charts.ColorUtil.fromDartColor(Colors.white)),
+            ),
+
+          ),
+          primaryMeasureAxis: charts.NumericAxisSpec(
+            renderSpec: charts.SmallTickRendererSpec(
+              labelStyle: charts.TextStyleSpec(
+                  color: charts.ColorUtil.fromDartColor(Colors.white)),
+            ),
           ),
           behaviors: [
             charts.SeriesLegend(
@@ -51,134 +86,60 @@ class ChartLineCharts extends StatelessWidget {
     );
   }
 
-  static List<charts.Series<ProjectTasks, int>> _createSampleData() {
-    final myFakeDesktopData = [
-      ProjectTasks(
-        0,
-        5,
-        charts.ColorUtil.fromDartColor(
-          Color(0xffEF4123),
-        ),
-      ),
-      ProjectTasks(
-        1,
-        25,
-        charts.ColorUtil.fromDartColor(
-          Color(0xffEF4123),
-        ),
-      ),
-      ProjectTasks(
-        2,
-        100,
-        charts.ColorUtil.fromDartColor(
-          Color(0xffEF4123),
-        ),
-      ),
-      ProjectTasks(
-        3,
-        75,
-        charts.ColorUtil.fromDartColor(
-          Color(0xffEF4123),
-        ),
-      ),
+  static List<charts.Series<TypeTasks, int>> _createSampleData() {
+    final bugTasks = [
+      TypeTasks(0, 50),
+      TypeTasks(1, 25),
+      TypeTasks(2, 100),
+      TypeTasks(3, 75),
+      TypeTasks(4, 125),
     ];
 
-    var myFakeTabletData = [
-      ProjectTasks(
-        0,
-        10,
-        charts.ColorUtil.fromDartColor(
-          Color(0xffF7941E),
-        ),
-      ),
-      ProjectTasks(
-        1,
-        50,
-        charts.ColorUtil.fromDartColor(
-          Color(0xffF7941E),
-        ),
-      ),
-      ProjectTasks(
-        2,
-        200,
-        charts.ColorUtil.fromDartColor(
-          Color(0xffF7941E),
-        ),
-      ),
-      ProjectTasks(
-        3,
-        150,
-        charts.ColorUtil.fromDartColor(
-          Color(0xffF7941E),
-        ),
-      ),
+    var improvementTasks = [
+      TypeTasks(0, 10),
+      TypeTasks(1, 50),
+      TypeTasks(2, 200),
+      TypeTasks(3, 150),
+      TypeTasks(4, 15),
     ];
 
-    var myFakeMobileData = [
-      ProjectTasks(
-        0,
-        15,
-        charts.ColorUtil.fromDartColor(
-          Color(0xff40BA8D),
-        ),
-      ),
-      ProjectTasks(
-        1,
-        75,
-        charts.ColorUtil.fromDartColor(
-          Color(0xff40BA8D),
-        ),
-      ),
-      ProjectTasks(
-        2,
-        300,
-        charts.ColorUtil.fromDartColor(
-          Color(0xff40BA8D),
-        ),
-      ),
-      ProjectTasks(
-        3,
-        225,
-        charts.ColorUtil.fromDartColor(
-          Color(0xff40BA8D),
-        ),
-      ),
+    var implementationTasks = [
+      TypeTasks(0, 15),
+      TypeTasks(1, 300),
+      TypeTasks(2, 75),
+      TypeTasks(3, 225),
+      TypeTasks(4, 225),
     ];
 
     return [
-      new charts.Series<ProjectTasks, int>(
+      charts.Series<TypeTasks, int>(
         id: 'Bugs',
-        colorFn: (ProjectTasks color, _) => color.color,
-        domainFn: (ProjectTasks sales, _) => sales.year,
-        measureFn: (ProjectTasks sales, _) => sales.sales,
-        data: myFakeDesktopData,
+        colorFn: (_, __) => charts.Color.fromHex(code: '#EF4123'),
+        domainFn: (TypeTasks quantity, _) => quantity.month,
+        measureFn: (TypeTasks quantity, _) => quantity.quantity,
+        data: bugTasks,
       ),
-      new charts.Series<ProjectTasks, int>(
-        id: 'Testes',
-        colorFn: (ProjectTasks color, _) => color.color,
-        domainFn: (ProjectTasks sales, _) => sales.year,
-        measureFn: (ProjectTasks sales, _) => sales.sales,
-        data: myFakeTabletData,
-      ),
-      new charts.Series<ProjectTasks, int>(
+      charts.Series<TypeTasks, int>(
         id: 'Melhorias',
-        colorFn: (ProjectTasks color, _) => color.color,
-        domainFn: (ProjectTasks sales, _) => sales.year,
-        measureFn: (ProjectTasks sales, _) => sales.sales,
-        data: myFakeMobileData,
+        colorFn: (_, __) => charts.Color.fromHex(code: '#F7941E'),
+        domainFn: (TypeTasks quantity, _) => quantity.month,
+        measureFn: (TypeTasks quantity, _) => quantity.quantity,
+        data: improvementTasks,
+      ),
+      charts.Series<TypeTasks, int>(
+        id: 'Implementações',
+        colorFn: (_, __) => charts.Color.fromHex(code: '#8dc63f'),
+        domainFn: (TypeTasks quantity, _) => quantity.month,
+        measureFn: (TypeTasks quantity, _) => quantity.quantity,
+        data: implementationTasks,
       ),
     ];
   }
 }
 
-class ProjectTasks {
-  final int year;
-  final int sales;
-  final charts.Color color;
+class TypeTasks {
+  final int month;
+  final int quantity;
 
-  ProjectTasks(
-    this.year,
-    this.sales,
-    this.color,
-  );
+  TypeTasks(this.month, this.quantity);
 }
