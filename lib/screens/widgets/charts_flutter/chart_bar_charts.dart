@@ -61,7 +61,7 @@ class ChartBarCharts extends StatelessWidget {
     );
   }
 
-  static List<charts.Series<DoneTasks, String>> chartsData() {
+  List<charts.Series<DoneTasks, String>> chartsData() {
     final january = [
       DoneTasks('Jan', 55, charts.Color.fromHex(code: '#EF4123')),
     ];
